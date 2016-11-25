@@ -23,7 +23,8 @@ import java.awt.Toolkit;
 
 import javaUtil.ConUtil;
 import javaUtil.StrEmptyUtil;
-import javaDao.UserDao;;
+import javaDao.UserDao;
+import javaModel.Result;
 
 public class login extends JFrame {
 
@@ -90,8 +91,13 @@ public class login extends JFrame {
 					JOptionPane.showMessageDialog(null, "密码不能为空！");
 					return;
 				}
-				
-				
+				UserDao userDao = new UserDao();
+				Result result = userDao.login(usernameStr,passwordStr);
+				if(result.success){
+					JOptionPane.showMessageDialog(null, "登录成功！");
+				}else{
+					JOptionPane.showMessageDialog(null, result.message);
+				}
 			}
 		});
 		

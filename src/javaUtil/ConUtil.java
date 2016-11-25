@@ -8,9 +8,9 @@ import java.sql.DriverManager;
 
 public class ConUtil {
 
-	private String dbUrl="jdbc:mysql://localhost:3306/test";
-	private String dbUserName="root";//用户名
-	private String dbPasssword="hao456789";//密码
+	private String dbUrl="jdbc:mysql://jovanht.cn:3306/hotel";
+	private String dbUserName="hotel";//用户名
+	private String dbPasssword="hotel888";//密码
 	private String jdbcName="com.mysql.jdbc.Driver";
 	//获取数据库连接
 	public Connection getCon() throws Exception {

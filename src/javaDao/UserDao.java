@@ -13,16 +13,17 @@ public class UserDao {
 	private ConUtil conUtil=new ConUtil();
 	public Result login(String name,String password){
 		Result result = new Result();
+		result.message = "网络连接错误！";
 		User user = new User();
-		String sql="select * from tb_person where userName=?";
+		String sql="select * from user where name=?";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
 			pst = con.prepareStatement(sql);
 			pst.setString(1, name);
-			pst.setString(2, password);
 			ResultSet res=pst.executeQuery();
+
 			if(!res.next()){
 				result.success = false;
 				result.message = "用户不存在！";
@@ -48,8 +49,8 @@ public class UserDao {
 				e2.printStackTrace();
 			}
 		}
-		
-		
+		result.message = "登录成功！";
+		result.success = true;
 		return result;
 	}
 }
