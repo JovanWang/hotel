@@ -11,35 +11,35 @@ import java.sql.SQLException;
 
 public class UserDao {
 	private ConUtil conUtil=new ConUtil();
-	public Result login(String name,String password){
+	public Result login(String name,String password,int role){
 		Result result = new Result();
 		result.message = "网络连接错误！";
-		User user = new User();
-		String sql="select * from user where name=?";
+		String sql="select * from user where name=? and role_id=?";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
 			pst = con.prepareStatement(sql);
 			pst.setString(1, name);
+			pst.setInt(2, role);
 			ResultSet res=pst.executeQuery();
 
 			if(!res.next()){
 				result.success = false;
-				result.message = "用户不存在！";
+				result.message = "该类型用户不存在！";
 				return result;
+			}else{
+				do{
+					 System.out.print(res.getString("Password"));
+					//user.setId(Integer.parseInt(res.getString("id")));
+					if(!res.getString("Password").equals(password)){
+						result.success = false;
+						result.message = "密码错误！";
+						return result;
+					}
+		        }while(res.next());
 			}
-			while(res.next()){
-				user=new User();
-				user.setId(Integer.parseInt(res.getString("id")));
-				user.setName(res.getString("UserName"));
-				if(!user.getPassword().equals(password)){
-					result.success = false;
-					result.message = "密码错误！";
-					return result;
-				}
-				user.setPassword(res.getString("Password"));
-	        }
+			
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}finally{
