@@ -1,6 +1,6 @@
 package javaModel;
 
-public class food {
+public class Food {
 	private int id;
 	private String name;
 	private int food_type_id;
@@ -14,10 +14,10 @@ public class food {
 	private String create_time;
 	private String update_time;
 	private String delete_time;
-public food(){
+public Food(){
 	super();
 }
-public food(String name,int food_type_id,double price,String create_time){
+public Food(String name,int food_type_id,double price,String create_time){
 	super();
 	this.name=name;
 	this.food_type_id=food_type_id;

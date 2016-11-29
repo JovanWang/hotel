@@ -1,6 +1,6 @@
 package javaModel;
 
-public class bill {
+public class Bill {
 private int id;
 private int buffet_id;
 private int user_id;
@@ -10,10 +10,10 @@ private String settle_time;
 private String create_time;
 private String delete_time;
 private double billcol;
-public bill(){
+public Bill(){
 	super();
 }
-public bill(int buffet_id,int user_id,String create_time){
+public Bill(int buffet_id,int user_id,String create_time){
 	super();
 	this.buffet_id=buffet_id;
 	this.user_id=user_id;

@@ -1,16 +1,16 @@
 package javaModel;
 
-public class role {
+public class Role {
 	private String name;
 	private String create_time;
 	private String text;
 	private String note;
 	private int id;
-	public role(){
+	public Role(){
 		super();
 	}
 	/////////////////////////////////
-	public role(String name,String create_time){
+	public Role(String name,String create_time){
 		super();
 		this.name = name;
 		this.create_time=create_time;

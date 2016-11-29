@@ -1,6 +1,6 @@
 package javaModel;
 
-public class buffet {
+public class Buffet {
  private int id;
  private int table_no;
  private int seating_num;
@@ -10,10 +10,10 @@ public class buffet {
  private String delete_time;
  private String note;
  //////////////////////////
- public buffet(){
+ public Buffet(){
 	 super();
  }
- public buffet(int table_no,String create_time){
+ public Buffet(int table_no,String create_time){
 	 super();
 	 this.table_no=table_no;
 	 this.create_time=create_time;

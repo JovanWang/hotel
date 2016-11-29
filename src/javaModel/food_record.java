@@ -1,16 +1,16 @@
 package javaModel;
 
-public class food_record {
+public class Food_record {
 	private int id;
 	private int bill_id;
 	private int food_id;
 	private int food_num;
 	private String create_time;
 	private String delete_time;
-public food_record(){
+public Food_record(){
 	super();
 }
-public food_record(int bill_id,int food_id,String create_time){
+public Food_record(int bill_id,int food_id,String create_time){
 	super();
 	this.bill_id=bill_id;
 	this.food_id=food_id;

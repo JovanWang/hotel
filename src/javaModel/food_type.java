@@ -1,15 +1,15 @@
 package javaModel;
 
-public class food_type {
+public class Food_type {
 private int id;
 private String name;
 private String text;
 private String note;
 private String create_time;
-	public food_type(){
+	public Food_type(){
 		super();
 	}
-	public food_type(String name,String create_time){
+	public Food_type(String name,String create_time){
 		super();
 		this.name=name;
 		this.create_time=create_time;
