@@ -21,14 +21,27 @@ public class User {
 	public User(){
 		super();
 	}
-	public User(String name,String password,int role_id,String email,int integral,String create_time){
+	public User(int id,String name,String password,String pay_password,int role_id,
+			String email,int phone,double money,int integral,String describe,String sex,int age,
+			String img_src,String note,String create_time,String update_time,String delete_time){
 		super();
+		this.id = id;
 		this.name = name;
 		this.password = password;
+		this.pay_password = pay_password;
 		this.role_id = role_id;
 		this.email = email;
+		this.phone = phone;
+		this.money = money;
 		this.integral = integral;
+		this.describe=describe;
+		this.sex=sex;
+		this.age=age;
+		this.img_src=img_src;
+		this.note=note;
 		this.create_time=create_time;
+		this.update_time=update_time;
+		this.delete_time=delete_time;
 	}
 	//////////////////////////////////////////////////////////////////////////////////////
 	public int getId(){
@@ -133,4 +146,5 @@ public class User {
 	}
 	public void setdelete_time(String delete_time){
 		this.delete_time=delete_time;
-	}}
+	}
+}

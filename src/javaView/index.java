@@ -29,7 +29,8 @@ public class index extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					index frame = new index();
+					String username = "";
+					index frame = new index(username);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +42,7 @@ public class index extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public index() {
+	public index(String username) {
 		//setBackground(new Color(240, 240, 240));
 		setTitle("酒店管理系统");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,6 +51,25 @@ public class index extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setBounds(0,0,1050,750);
+		JLabel  usernameLab;
+		if(username == ""){
+			usernameLab = new JLabel("未登录");
+		}else{
+			usernameLab = new JLabel(username+"，你好！");
+		}
+		usernameLab.setBounds(920, 10, 50,20);
+		contentPane.add(usernameLab);
+		
+		JButton logout = new JButton("退出");
+		logout.setBounds(970, 10, 60, 20);
+		logout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new login().setVisible(true);
+			}
+		});
+		contentPane.add(logout);
+		
 		
 		JButton createbtn = new JButton("我要点餐");
 		createbtn.addActionListener(new ActionListener() {

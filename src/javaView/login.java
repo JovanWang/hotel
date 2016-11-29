@@ -166,7 +166,12 @@ public class login extends JFrame {
 		Result result = userDao.login(usernameStr,passwordStr,role);
 		if(result.success){
 			dispose();
-			new index().setVisible(true);
+			if(role == 1){
+				new index(usernameStr).setVisible(true);
+			}else if(role == 2){
+				
+			}
+			
 		}else{
 			JOptionPane.showMessageDialog(null, result.message);
 		}
