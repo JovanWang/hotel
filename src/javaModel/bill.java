@@ -6,6 +6,7 @@ private int buffet_id;
 private int user_id;
 private int admin_id;
 private double price_all;
+private double pay_price;
 private String settle_time;
 private String create_time;
 private String delete_time;
@@ -35,6 +36,9 @@ public int getadmin_id(){
 public double getprice_all(){
 	return price_all;
 }
+public double getpay_price(){
+	return pay_price;
+}
 public String getsettle_time(){
 	return settle_time;
 }
@@ -48,7 +52,7 @@ public double getbillcol(){
 	return billcol;
 }
 /////////////////////////////////////////
-public void getid(int id){
+public void setid(int id){
 	this.id =id;
 }
 
@@ -63,6 +67,9 @@ public void setadmin_id(int admin_id){
 }
 public void setprice_all(double price_all){
 	this.price_all=price_all;
+}
+public void setpay_price(double pay_price){
+	this.pay_price=pay_price;
 }
 public void setsettle_time(String settle_time){
 	this.settle_time=settle_time;

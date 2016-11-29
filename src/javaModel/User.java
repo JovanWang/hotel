@@ -21,11 +21,10 @@ public class User {
 	public User(){
 		super();
 	}
-	public User(int id,String name,String password,String pay_password,int role_id,
+	public User(String name,String password,String pay_password,int role_id,
 			String email,int phone,double money,int integral,String describe,String sex,int age,
 			String img_src,String note,String create_time,String update_time,String delete_time){
 		super();
-		this.id = id;
 		this.name = name;
 		this.password = password;
 		this.pay_password = pay_password;

@@ -7,6 +7,7 @@ public class Food_record {
 	private int food_num;
 	private String create_time;
 	private String delete_time;
+	private String food_name;
 public Food_record(){
 	super();
 }
@@ -36,13 +37,17 @@ public String getcreate_time(){
 public String getdelete_time(){
 	return delete_time;
 }
+
+public String food_name(){
+	return food_name;
+}
 public void setid(int id){
 	this.id=id;
 }
 public void setbill_id(int bill_id){
 	this.bill_id=bill_id;
 }
-public void setfood_id(int food_id){
+public void setfood_ids(int food_id){
 	this.food_id=food_id;
 }
 public void setfood_num(int food_num){
@@ -53,5 +58,8 @@ public void setcreate_time(String create_time){
 }
 public void setdelete_time(String delete_time){
 	this.delete_time=delete_time;
+}
+public void setfood_name(String food_name){
+	this.food_name=food_name;
 }
 }

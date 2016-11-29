@@ -30,9 +30,8 @@ public class UserDao {
 				return result;
 			}else{
 				do{
-					 System.out.print(res.getString("Password"));
 					//user.setId(Integer.parseInt(res.getString("id")));
-					if(!res.getString("Password").equals(password)){
+					if(!res.getString("password").equals(password)){
 						result.success = false;
 						result.message = "ÃÜÂë´íÎó£¡";
 						return result;
@@ -52,5 +51,35 @@ public class UserDao {
 		result.message = "µÇÂ¼³É¹¦£¡";
 		result.success = true;
 		return result;
+	}
+	public int getUserId(String username){
+		String sql="select * from user where name=? ";
+		int userId = -1;
+		Connection con=null;
+		try {
+			con = conUtil.getCon();
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setString(1, username);
+			ResultSet res=pst.executeQuery();
+
+			if(!res.next()){
+				return -1;
+			}else{
+				do{
+					userId = res.getInt("Id");
+		        }while(res.next());
+			}
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}finally{
+			try {
+				conUtil.closeCon(con);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return userId;
 	}
 }
