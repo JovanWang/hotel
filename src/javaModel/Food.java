@@ -4,10 +4,10 @@ public class Food {
 	private int id;
 	private String name;
 	private int food_type_id;
-	private int mnemonic_no;
+	private String mnemonic_no;
 	private double price;
 	private String unit;
-	private String rank;
+	private int rank;
 	private String describe;
 	private String img_src;
 	private String note;
@@ -30,7 +30,7 @@ public int getid(){
 public int getfood_type_id(){
 	return food_type_id;
 }
-public int getmnemonic_no(){
+public String getmnemonic_no(){
 	return mnemonic_no;
 }
 public double getprice(){
@@ -39,7 +39,7 @@ public double getprice(){
 public String getunit(){
 	return unit;
 }
-public String getrank(){
+public int getrank(){
 	return rank;
 }
 public String getdescribe(){
@@ -69,7 +69,7 @@ public void setid(int id){
 public void setfood_type_id(int food_type_id){
 	this.food_type_id=food_type_id;
 }
-public void setmnemonic_no(int mnemonic_no){
+public void setmnemonic_no(String mnemonic_no){
 	this.mnemonic_no=mnemonic_no;
 }
 public void setprice(double price){
@@ -77,6 +77,9 @@ public void setprice(double price){
 }
 public void setunit(String unit){
 	this.unit=unit;
+}
+public void setrank(int rank){
+	this.rank=rank;
 }
 public void setdescribe(String describe){
 	this.describe=describe;

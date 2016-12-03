@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javaModel.Bill;
 import javaModel.Food_record;
 import javaModel.Result;
 import javaUtil.ConUtil;

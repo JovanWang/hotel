@@ -6,6 +6,7 @@ private String name;
 private String text;
 private String note;
 private String create_time;
+private String update_time;
 	public Food_type(){
 		super();
 	}
@@ -29,6 +30,9 @@ private String create_time;
 	public String getcreate_time(){
 		return create_time;
 	}
+	public String getupdate_time(){
+		return update_time;
+	}
 	public void setid(int id){
 		this.id=id;
 	}
@@ -43,5 +47,8 @@ private String create_time;
 	}
 	public void setcreate_time(String create_time){
 		this.create_time=create_time;
+	}
+	public void setupdate_time(String update_time){
+		this.update_time=update_time;
 	}
 }

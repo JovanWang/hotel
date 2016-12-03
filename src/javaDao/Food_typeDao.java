@@ -172,4 +172,80 @@ public class Food_typeDao {
 			result.success = true;
 			return result;
 		}
+		
+		//获取所有菜品
+		public Food_type[] select(){
+			Food_type[] ftList = new Food_type[50];
+			int ftN = 0;
+			String sql;
+			Connection con=null;
+			sql = "select top 50 * from food_type";
+			try {
+				con = conUtil.getCon();
+				PreparedStatement pst;
+				pst = con.prepareStatement(sql);
+				ResultSet res=pst.executeQuery();
+				if(!res.next()){
+					return null;
+				}else{
+					do{
+						Food_type ft = new Food_type();
+						ft.setid(res.getInt("id"));
+						ft.setname(res.getString("name"));
+						ft.settext(res.getString("text"));
+						ft.setcreate_time(res.getString("create_time"));
+						ft.setupdate_time(res.getString("update_time"));
+						ftList[ftN] = ft;
+						ftN++;
+			        }while(res.next());
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}finally{
+				try {
+					conUtil.closeCon(con);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+			return ftList;
+		}
+		//根据id获取菜品
+				public Food_type[] getId(int id){
+					Food_type[] ftList = new Food_type[50];
+					int ftN = 0;
+					String sql;
+					Connection con=null;
+					sql = "select top 50 * from food_type where id = ?";
+					try {
+						con = conUtil.getCon();
+						PreparedStatement pst;
+						pst = con.prepareStatement(sql);
+						pst.setInt(1, id);
+						ResultSet res=pst.executeQuery();
+						if(!res.next()){
+							return null;
+						}else{
+							do{
+								Food_type ft = new Food_type();
+								ft.setid(res.getInt("id"));
+								ft.setname(res.getString("name"));
+								ft.settext(res.getString("text"));
+								ft.setcreate_time(res.getString("create_time"));
+								ft.setupdate_time(res.getString("update_time"));
+								ftList[ftN] = ft;
+								ftN++;
+					        }while(res.next());
+						}
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}finally{
+						try {
+							conUtil.closeCon(con);
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+					}
+					return ftList;
+				}
 }

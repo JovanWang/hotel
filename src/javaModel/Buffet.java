@@ -4,7 +4,7 @@ public class Buffet {
  private int id;
  private int table_no;
  private int seating_num;
- private String status;
+ private int status;
  private String create_time;
  private String update_time;
  private String delete_time;
@@ -27,7 +27,7 @@ public class Buffet {
  public int getseating_num(){
 	 return seating_num;
  }
- public String getstatus(){
+ public int getstatus(){
 	 return status;
  }
  public String getcreate_time(){
@@ -51,7 +51,7 @@ public class Buffet {
  public void setseating_num(int seating_num){
 	 this.seating_num=seating_num;
  }
- public void setstatus(String status){
+ public void setstatus(int status){
 	 this.status=status;
  }
  public void setcreate_time(String create_time){
