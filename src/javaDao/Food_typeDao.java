@@ -146,7 +146,7 @@ public class Food_typeDao {
 			result.message = "ÍøÂçÁ¬½Ó´íÎó£¡";
 			String sql;
 			Connection con=null;
-			sql = "delete fromo food_type where id = ?";
+			sql = "delete from food_type where id = ?";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
