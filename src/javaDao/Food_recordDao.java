@@ -3,7 +3,9 @@ package javaDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
+import javaModel.Food;
 import javaModel.Food_record;
 import javaModel.Result;
 import javaUtil.ConUtil;
@@ -78,10 +80,9 @@ public class Food_recordDao {
 				return result;
 			}
 	//根据定单号获取餐单
-	public Food_record[] list(int bill_id){
-		Food_record[] frList = new Food_record[50];
-		int frN = 0;
-		String sql="select top 50 food_record.*,food.name as food_name from food_record left join food on food_record.food_id = food.id  where food_record.bill_id=?  and food_record.delete_time is NULL";
+	public ArrayList list(int bill_id){
+		ArrayList<Food_record> frList = new ArrayList();
+		String sql="select food_record.*,food.name as food_name from food_record left join food on food_record.food_id = food.id  where food_record.bill_id=?  and food_record.delete_time is NULL limit 0, 50";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();
@@ -98,8 +99,7 @@ public class Food_recordDao {
 					fr.setfood_name(res.getString("food_name"));
 					fr.setfood_num(res.getInt("food_num"));
 					fr.setcreate_time(res.getString("create_time"));
-					frList[frN] = fr;
-					frN++;
+					frList.add(fr);
 		        }while(res.next());
 			}
 			

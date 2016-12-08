@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 
 public class ConUtil {
 
-	private String dbUrl="jdbc:mysql://jovanht.cn:3306/hotel";
+	private String dbUrl="jdbc:mysql://jovanht.cn:3306/hotel?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true";
 	private String dbUserName="hotel";//”√ªß√˚
 	private String dbPasssword="hotel888";//√‹¬Î
 	private String jdbcName="com.mysql.jdbc.Driver";

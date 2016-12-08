@@ -3,8 +3,10 @@ package javaDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javaModel.Food;
+import javaModel.Food_type;
 import javaModel.Result;
 import javaUtil.ConUtil;
 import javaUtil.TimeNowUtil;
@@ -134,12 +136,11 @@ public class FoodDao {
 		result.success = true;
 		return result;
 	}
-	public Food[] select(){
-		Food[] foodList = new Food[50];
-		int foodN = 0;
+	public ArrayList select(){
+		ArrayList<Food> foodList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select top 50 * from food where delete_time is NULL";
+		sql = "select * from food where delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
@@ -161,8 +162,7 @@ public class FoodDao {
 					food.setdescribe(res.getString("describe"));
 					food.setcreate_time(res.getString("create_time"));
 					food.setupdate_time(res.getString("update_time"));
-					foodList[foodN] = food;
-					foodN++;
+					foodList.add(food);
 		        }while(res.next());
 			}
 		} catch (Exception e1) {
@@ -176,12 +176,11 @@ public class FoodDao {
 		}
 		return foodList;
 	}
-	public Food[] getId(int id){
-		Food[] foodList = new Food[50];
-		int foodN = 0;
+	public ArrayList getId(int id){
+		ArrayList<Food> foodList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select top 50 * from food where id = ?, delete_time is NULL";
+		sql = "select * from food where id = ?, delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
@@ -204,8 +203,48 @@ public class FoodDao {
 					food.setdescribe(res.getString("describe"));
 					food.setcreate_time(res.getString("create_time"));
 					food.setupdate_time(res.getString("update_time"));
-					foodList[foodN] = food;
-					foodN++;
+					foodList.add(food);
+		        }while(res.next());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}finally{
+			try {
+				conUtil.closeCon(con);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return foodList;
+	}
+	public ArrayList getType(int id){
+		ArrayList<Food> foodList = new ArrayList();
+		String sql;
+		Connection con=null;
+		sql = "select * from food where food_type_id = ?, delete_time is NULL limit 0, 50";
+		try {
+			con = conUtil.getCon();
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			ResultSet res=pst.executeQuery();
+			if(!res.next()){
+				return null;
+			}else{
+				do{
+					Food food = new Food();
+					food.setid(res.getInt("id"));
+					food.setname(res.getString("name"));
+					food.setfood_type_id(res.getInt("food_type_id"));
+					food.setmnemonic_no(res.getString("mnemonic_no"));
+					food.setprice(res.getDouble("price"));
+					food.setunit(res.getString("unit"));
+					food.setrank(res.getInt("rank"));
+					food.setimg_src(res.getString("img_src"));
+					food.setdescribe(res.getString("describe"));
+					food.setcreate_time(res.getString("create_time"));
+					food.setupdate_time(res.getString("update_time"));
+					foodList.add(food);
 		        }while(res.next());
 			}
 		} catch (Exception e1) {

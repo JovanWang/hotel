@@ -59,6 +59,7 @@ public class login extends JFrame {
 	 * Create the frame.
 	 */
 	public login() {
+		setTitle("酒店管理系统");
 		//改变系统默认字体
 				Font font = new Font("Dialog", Font.PLAIN, 12);
 				java.util.Enumeration keys = UIManager.getDefaults().keys();

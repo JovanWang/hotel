@@ -3,9 +3,11 @@ package javaDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javaModel.Result;
 import javaModel.Bill;
+import javaModel.Food_type;
 import javaDao.UserDao;
 import javaUtil.ConUtil;
 import javaUtil.TimeNowUtil;
@@ -145,11 +147,11 @@ public class BillDao {
 			return result;
 		}
 	//根据用户返回订单列表
-	public Bill[] list(String username){
-		Bill[] billList = new Bill[10];
+	public ArrayList list(String username){
+		ArrayList<Bill> billList = new ArrayList();
 		int billN = 0;
 		int userId =new UserDao().getUserId(username);
-		String sql="select top 10 * from bill where user_id=? and delete_time is NULL";
+		String sql="select  * from bill where user_id=? and delete_time is NULL limit 0, 10";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();
@@ -166,8 +168,7 @@ public class BillDao {
 					bill.setprice_all(res.getDouble("price_all"));
 					bill.setpay_price(res.getDouble("pay_price"));
 					bill.setsettle_time(res.getString("settle_time"));
-					billList[billN] = bill;
-					billN++;
+					billList.add(bill);
 		        }while(res.next());
 			}
 			

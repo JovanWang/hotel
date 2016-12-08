@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javaModel.Result;
 import javaModel.Food_type;
@@ -174,12 +175,11 @@ public class Food_typeDao {
 		}
 		
 		//获取所有菜品
-		public Food_type[] select(){
-			Food_type[] ftList = new Food_type[50];
-			int ftN = 0;
+		public ArrayList select(){
+			ArrayList<Food_type> ftList = new ArrayList();
 			String sql;
 			Connection con=null;
-			sql = "select top 50 * from food_type";
+			sql = "select * from food_type limit 0, 5";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
@@ -195,8 +195,7 @@ public class Food_typeDao {
 						ft.settext(res.getString("text"));
 						ft.setcreate_time(res.getString("create_time"));
 						ft.setupdate_time(res.getString("update_time"));
-						ftList[ftN] = ft;
-						ftN++;
+						ftList.add(ft);
 			        }while(res.next());
 				}
 			} catch (Exception e1) {
@@ -211,12 +210,11 @@ public class Food_typeDao {
 			return ftList;
 		}
 		//根据id获取菜品
-				public Food_type[] getId(int id){
-					Food_type[] ftList = new Food_type[50];
-					int ftN = 0;
+				public ArrayList getId(int id){
+					ArrayList<Food_type> ftList = new ArrayList();
 					String sql;
 					Connection con=null;
-					sql = "select top 50 * from food_type where id = ?";
+					sql = "select * from food_type where id = ? limit 0, 50";
 					try {
 						con = conUtil.getCon();
 						PreparedStatement pst;
@@ -233,8 +231,7 @@ public class Food_typeDao {
 								ft.settext(res.getString("text"));
 								ft.setcreate_time(res.getString("create_time"));
 								ft.setupdate_time(res.getString("update_time"));
-								ftList[ftN] = ft;
-								ftN++;
+								ftList.add(ft);
 					        }while(res.next());
 						}
 					} catch (Exception e1) {
@@ -247,5 +244,6 @@ public class Food_typeDao {
 						}
 					}
 					return ftList;
+					
 				}
 }

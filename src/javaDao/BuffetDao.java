@@ -3,8 +3,10 @@ package javaDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javaModel.Buffet;
+import javaModel.Food_record;
 import javaModel.Result;
 import javaUtil.TimeNowUtil;
 import javaUtil.ConUtil;
@@ -128,12 +130,11 @@ public class BuffetDao {
 		result.success = true;
 		return result;
 	}
-	public Buffet[] select(){
-		Buffet[] buffetList = new Buffet[50];
-		int buffetN = 0;
+	public ArrayList select(){
+		ArrayList<Buffet> buffetList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select top 50 * from buffet where delete_time is NULL";
+		sql = "select * from buffet where delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
@@ -150,8 +151,7 @@ public class BuffetDao {
 					buffet.setstatus(res.getInt("status"));
 					buffet.setcreate_time(res.getString("create_time"));
 					buffet.setupdate_time(res.getString("update_time"));
-					buffetList[buffetN] = buffet;
-					buffetN++;
+					buffetList.add(buffet);
 		        }while(res.next());
 			}
 		} catch (Exception e1) {
@@ -165,12 +165,11 @@ public class BuffetDao {
 		}
 		return buffetList;
 	}
-	public Buffet[] getId(int id){
-		Buffet[] buffetList = new Buffet[50];
-		int buffetN = 0;
+	public ArrayList getId(int id){
+		ArrayList<Buffet> buffetList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select top 50 * from buffet where id = ?, delete_time is NULL";
+		sql = "select * from buffet where id = ?, delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
@@ -188,8 +187,7 @@ public class BuffetDao {
 					buffet.setstatus(res.getInt("status"));
 					buffet.setcreate_time(res.getString("create_time"));
 					buffet.setupdate_time(res.getString("update_time"));
-					buffetList[buffetN] = buffet;
-					buffetN++;
+					buffetList.add(buffet);
 		        }while(res.next());
 			}
 		} catch (Exception e1) {
@@ -202,5 +200,43 @@ public class BuffetDao {
 			}
 		}
 		return buffetList;
+	}
+	public Result upstatus(int id,int status){
+		Result result = new Result();
+		result.message = "网络连接错误！";
+		String updateTime = new TimeNowUtil().now();
+		String sql;
+		Connection con=null;
+		if(status == 0){
+			result.message = "更新新桌失败！";
+			result.success = false;
+			return result;
+		}else{
+			sql = "update buffet set status = ? where id = ?";
+			try {
+				con = conUtil.getCon();
+				PreparedStatement pst;
+				pst = con.prepareStatement(sql);
+				pst.setInt(1, status);
+				pst.setInt(2, id);
+				int n=pst.executeUpdate();
+				if(n <= 0){
+					result.message = "更新新桌失败！";
+					result.success = false;
+					return result;
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}finally{
+				try {
+					conUtil.closeCon(con);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+			}
+		}
+		result.message = "更新新桌成功！";
+		result.success = true;
+		return result;
 	}
 }
