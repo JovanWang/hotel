@@ -18,7 +18,7 @@ public class Food_recordDao {
 		Result result = new Result();
 		result.message = "ÍøÂçÁ¬½Ó´íÎó£¡";
 		String createTime = new TimeNowUtil().now();
-		String sql="insert into food_record('bill_id','food_id','food_num','create_time') values(?,?,?,?)";
+		String sql="insert into food_record(bill_id,food_id,food_num,create_time) values(?,?,?,?)";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();

@@ -20,7 +20,7 @@ public class BillDao {
 		result.message = "ÍøÂçÁ¬½Ó´íÎó£¡";
 		int userId =new UserDao().getUserId(username);
 		String createTime = new TimeNowUtil().now();
-		String sql="insert into bill('buffet_id','user_id','create_time') values(?,?,?)";
+		String sql="insert into bill(buffet_id,user_id,create_time) values(?,?,?)";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();

@@ -24,7 +24,7 @@ public class BuffetDao {
 			result.success = false;
 			return result;
 		}else{
-			sql = "insert into buffet('table_no','seating_num','status','create_time') values(?,?,?,?)";
+			sql = "insert into buffet(table_no,seating_num,status,create_time) values(?,?,?,?)";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;

@@ -21,7 +21,7 @@ public class Food_typeDao {
 		String sql;
 		Connection con=null;
 		if(ft.gettext()!=""){
-			sql = "insert into food_type('name','text','create_time') values(?,?,?)";
+			sql = "insert into food_type(name,text,create_time) values(?,?,?)";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
@@ -45,7 +45,7 @@ public class Food_typeDao {
 				}
 			}
 		}else{
-			sql = "insert into food_type('name','create_time') values(?,?)";
+			sql = "insert into food_type(name,create_time) values(?,?)";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
@@ -179,7 +179,7 @@ public class Food_typeDao {
 			ArrayList<Food_type> ftList = new ArrayList();
 			String sql;
 			Connection con=null;
-			sql = "select * from food_type limit 0, 5";
+			sql = "select * from food_type limit 0, 50";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;

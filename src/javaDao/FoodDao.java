@@ -24,7 +24,7 @@ public class FoodDao {
 			result.success = false;
 			return result;
 		}else{
-			sql = "insert into food('name','food_type_id','mnemonic_no','price','unit','img_src','create_time') values(?,?,?,?,?,?,?)";
+			sql = "insert into food(name,food_type_id,mnemonic_no,price,unit,img_src,create_time) values(?,?,?,?,?,?,?)";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
