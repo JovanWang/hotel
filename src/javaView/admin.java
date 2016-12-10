@@ -12,11 +12,14 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
+import javaModel.Bill;
 import javaModel.Buffet;
 import javaModel.Food;
 import javaModel.Food_type;
 import javaModel.Result;
+import javaModel.User;
 import javaUtil.StrEmptyUtil;
+import javaDao.BillDao;
 import javaDao.BuffetDao;
 import javaDao.FoodDao;
 import javaDao.Food_typeDao;
@@ -50,6 +53,8 @@ public class admin extends JFrame {
 	private Food_typeDao ftd = new Food_typeDao();
 	private FoodDao fd = new FoodDao();
 	private BuffetDao bfd = new BuffetDao();
+	private BillDao bld = new BillDao();
+	private UserDao userd = new UserDao();
 
 	/**
 	 * Launch the application.
@@ -58,7 +63,7 @@ public class admin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					admin frame = new admin();
+					admin frame = new admin("root");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,7 +75,7 @@ public class admin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public admin() {
+	public admin(String username) {
 		setTitle("酒店管理-后台服务系统");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(10, 10, 1050, 750);
@@ -106,12 +111,209 @@ public class admin extends JFrame {
 		buffetbtn.setBounds(262, 16, 93, 23);
 		contentPane.add(buffetbtn);
 		
+
+		JTableOperationadmin jTableInit = new JTableOperationadmin();
+		JTable table = jTableInit.JtableDataInit();
+		//滚动条
+		JScrollPane jtablesp= new JScrollPane(table);
+		jtablesp.setBounds(32, 94, 950, 500);
+		contentPane.add(jtablesp);
 		
-		
+		JButton settlebtn = new JButton("结算选中账单");
+		settlebtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				settleAux(username);
+			}
+		});
+		settlebtn.setBounds(859, 604, 123, 23);
+		contentPane.add(settlebtn);
+		//将scrollPane与jTable 添加到全局变量中
+		admin.setjScrollPane(jtablesp);
+		admin.setjTable(table);
 		
 		//设置登录页面居中JFrame
 		this.setLocationRelativeTo(null);
 	}
+	//
+	//主内容函数区
+	//
+	 //菜系列表类（刷新用）
+		public class JTableOperationadmin{
+		    public JTable JtableDataInit(){
+		    	ArrayList<Bill> bill = bld.select();
+				Object[][] data = new Object[bill.size()][8];
+				String[] columnNames = {"序号","桌号","就餐用户","消费金额","结算金额","状态","创建时间","结算时间"};
+				for (int i=0; i < bill.size(); i++) {
+					data[i][0] = bill.get(i).getid();
+					int buffetid = bill.get(i).getbuffet_id();
+					if(bfd.getId(buffetid) == null){
+						data[i][1] = "无";
+					}else{
+						ArrayList<Buffet> buffet =bfd.getId(buffetid);
+						data[i][1] = buffet.get(0).gettable_no();
+					}
+					
+					int userid = bill.get(i).getuser_id();
+					ArrayList<User> user =userd.getId(userid);
+					data[i][2] = user.get(0).getName();
+					
+					data[i][3] = bill.get(i).getprice_all();
+					data[i][4] = bill.get(i).getpay_price();
+					if(bill.get(i).getstatus() == 3){
+						data[i][5] = "已结算";
+					}else if(bill.get(i).getstatus() != 3){
+						data[i][5] = "未结算";
+					}
+					
+					data[i][6] = bill.get(i).getcreate_time();
+					data[i][7] = bill.get(i).getsettle_time();
+				}
+		        JTable jt=new JTable(data,columnNames);
+				jt = new JTable(data,columnNames);
+				jt.getColumnModel().getColumn(0).setPreferredWidth(40);
+				jt.getColumnModel().getColumn(1).setPreferredWidth(60);
+				jt.getColumnModel().getColumn(2).setPreferredWidth(100);
+				jt.getColumnModel().getColumn(3).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(4).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(5).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(6).setPreferredWidth(135);
+				jt.getColumnModel().getColumn(7).setPreferredWidth(135);
+				jt.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+//				jt.setEnabled(false);
+				//设置表格内文字内容剧中
+				DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
+			    tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
+			    jt.setDefaultRenderer(Object.class, tcr);
+		        return jt;
+		    }
+		    public void reloadJTable(JTable jtable){
+		    	ArrayList<Bill> bill = bld.select();
+				Object[][] data = new Object[bill.size()][8];
+				String[] columnNames = {"序号","桌号","就餐用户","消费金额","结算金额","状态","创建时间","结算时间"};
+				for (int i=0; i < bill.size(); i++) {
+					data[i][0] = bill.get(i).getid();
+					int buffetid = bill.get(i).getbuffet_id();
+					if(bfd.getId(buffetid) == null){
+						data[i][1] = "无";
+					}else{
+						ArrayList<Buffet> buffet =bfd.getId(buffetid);
+						data[i][1] = buffet.get(0).gettable_no();
+					}
+					
+					int userid = bill.get(i).getuser_id();
+					ArrayList<User> user =userd.getId(userid);
+					data[i][2] = user.get(0).getName();
+					
+					data[i][3] = bill.get(i).getprice_all();
+					data[i][4] = bill.get(i).getpay_price();
+					if(bill.get(i).getstatus() == 3){
+						data[i][5] = "已结算";
+					}else if(bill.get(i).getstatus() != 3){
+						data[i][5] = "未结算";
+					}
+					
+					data[i][6] = bill.get(i).getcreate_time();
+					data[i][7] = bill.get(i).getsettle_time();
+				}
+		        JTable jt=new JTable(data,columnNames);
+				jt = new JTable(data,columnNames);
+				jt.getColumnModel().getColumn(0).setPreferredWidth(40);
+				jt.getColumnModel().getColumn(1).setPreferredWidth(60);
+				jt.getColumnModel().getColumn(2).setPreferredWidth(100);
+				jt.getColumnModel().getColumn(3).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(4).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(5).setPreferredWidth(120);
+				jt.getColumnModel().getColumn(6).setPreferredWidth(135);
+				jt.getColumnModel().getColumn(7).setPreferredWidth(135);
+				jt.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+				//设置表格内文字内容剧中
+				DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();// 设置table内容居中
+			    tcr.setHorizontalAlignment(SwingConstants.CENTER);// 这句和上句作用一样
+			    jt.setDefaultRenderer(Object.class, tcr);
+				admin.setjTable(jt);
+		        admin.getjScrollPane().setViewportView(jt);
+		    }
+		}
+	
+		//结算弹窗
+		void settleAux(String username){
+			int rowN = admin.getjTable().getSelectedRow();
+			Object objId = admin.getjTable().getValueAt(rowN, 0);
+			int rowId = Integer.parseInt(objId.toString());
+			Object objpa = admin.getjTable().getValueAt(rowN, 3);
+			String rowpa = String.valueOf(objpa);
+			Object objpp = admin.getjTable().getValueAt(rowN, 4);
+			String rowpp = String.valueOf(objpp);
+			
+			JFrame addfoodtype_frame = new JFrame();
+			addfoodtype_frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			addfoodtype_frame.setBounds(10, 10, 300, 250);
+			addfoodtype_frame.setTitle("结算账单");
+			JPanel foodtype_panal = new JPanel();
+			foodtype_panal.setBorder(new EmptyBorder(5, 5, 5, 5));
+			addfoodtype_frame.setContentPane(foodtype_panal);
+			
+			JLabel lblNewLabel = new JLabel("消费金额：");
+			lblNewLabel.setBounds(10, 15, 70, 15);
+			foodtype_panal.add(lblNewLabel);
+			
+			JEditorPane noText = new JEditorPane();
+			noText.setText(rowpa);
+			noText.setEnabled(false);
+			noText.setBounds(93, 15, 150, 21);
+			foodtype_panal.add(noText);
+			
+			JLabel lblNewLabel_1 = new JLabel("结算金额：");
+			lblNewLabel_1.setBounds(10, 60, 70, 15);
+			foodtype_panal.add(lblNewLabel_1);
+			
+			JEditorPane numText = new JEditorPane();
+			numText.setText(rowpp);
+			numText.setBounds(93, 60, 150, 21);
+			foodtype_panal.add(numText);
+			
+			foodtype_panal.setLayout(null);
+			JButton addfoodtypebtn = new JButton("确认结算");
+			addfoodtypebtn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String ppStr=StrEmptyUtil.strTrim(numText.getText());
+					double ppDou = 0;
+					
+					
+					if(StrEmptyUtil.isEmpty(ppStr)){
+						JOptionPane.showMessageDialog(null, "结算金额不能为空！");
+						return;
+					}else{
+						try{
+							ppDou = Double.parseDouble(ppStr);
+						} catch (NumberFormatException e1) {
+							//处理
+						JOptionPane.showMessageDialog(null, "结算金额只能为纯数字！");
+						return;
+						}
+					}
+					Result result = bld.adminSettle(rowId,ppDou,username);
+					if(result.success){
+						addfoodtype_frame.dispose();
+						try {
+			                //刷新列表
+							JTableOperationadmin table = new JTableOperationadmin();
+			                table.reloadJTable(admin.getjTable());
+			            } catch (Exception e1) {
+			                e1.printStackTrace();
+			            }
+						
+					}else{
+						JOptionPane.showMessageDialog(null, "结算信息失败请重新结算！");
+					}
+				}
+			});
+			addfoodtypebtn.setBounds(10, 180, 93, 23);
+			foodtype_panal.add(addfoodtypebtn);
+			addfoodtype_frame.setVisible(true);
+			//设置登录页面居中JFrame
+			addfoodtype_frame.setLocationRelativeTo(null);
+		}
 	//
 	//辅助函数区
 	//

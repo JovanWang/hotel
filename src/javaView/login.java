@@ -170,7 +170,7 @@ public class login extends JFrame {
 			if(role == 1){
 				new index(usernameStr).setVisible(true);
 			}else if(role == 2){
-				
+				new admin(usernameStr).setVisible(true);
 			}
 			
 		}else{

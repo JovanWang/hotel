@@ -2,12 +2,14 @@ package javaDao;
 
 import java.sql.Connection;
 
+import javaModel.Buffet;
 import javaModel.Result;
 import javaModel.User;
 import javaUtil.ConUtil;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserDao {
 	private ConUtil conUtil=new ConUtil();
@@ -81,5 +83,36 @@ public class UserDao {
 			}
 		}
 		return userId;
+	}
+	public ArrayList getId(int id){
+		ArrayList<User> userList = new ArrayList();
+		String sql="select * from user where id=? ";
+		Connection con=null;
+		try {
+			con = conUtil.getCon();
+			PreparedStatement pst;
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, id);
+			ResultSet res=pst.executeQuery();
+			if(!res.next()){
+				return null;
+			}else{
+				do{
+					User user = new User();
+					user.setId(res.getInt("id"));
+					user.setName(res.getString("name"));
+					userList.add(user);
+		        }while(res.next());
+			}
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}finally{
+			try {
+				conUtil.closeCon(con);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return userList;
 	}
 }

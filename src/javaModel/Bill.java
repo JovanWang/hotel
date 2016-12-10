@@ -7,10 +7,10 @@ private int user_id;
 private int admin_id;
 private double price_all;
 private double pay_price;
+private int status;
 private String settle_time;
 private String create_time;
 private String delete_time;
-private double billcol;
 public Bill(){
 	super();
 }
@@ -48,8 +48,8 @@ public String getcreate_time(){
 public String getdelete_time(){
 	return delete_time;
 }
-public double getbillcol(){
-	return billcol;
+public int getstatus(){
+	return status;
 }
 /////////////////////////////////////////
 public void setid(int id){
@@ -80,7 +80,7 @@ public void setcreate_time(String create_time){
 public void setdelete_time(String delete_time){
 this.delete_time=delete_time;
 }
-public void setbillcol(double billcol){
-	this.billcol=billcol;
+public void setstatus(int status){
+	this.status=status;
 }
 }
