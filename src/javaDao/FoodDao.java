@@ -67,17 +67,18 @@ public class FoodDao {
 			result.success = false;
 			return result;
 		}else{
-			sql = "update food set price = ?,describe = ?,rank = ?,update_time = ? where id = ?";
+			sql = "update food set price = ?,`describe` = ?,rank = ?,update_time = ?,food_type_id = ?,name = ? where id = ?";
 			try {
 				con = conUtil.getCon();
 				PreparedStatement pst;
-				pst = con.prepareStatement(sql);
 				pst = con.prepareStatement(sql);
 				pst.setDouble(1, food.getprice());
 				pst.setString(2, food.getdescribe());
 				pst.setInt(3, food.getrank());
 				pst.setString(4, updateTime);
-				pst.setInt(5, food.getid());
+				pst.setInt(5, food.getfood_type_id());
+				pst.setString(6, food.getname());
+				pst.setInt(7, food.getid());
 				int n=pst.executeUpdate();
 				if(n <= 0){
 					result.message = "¸üÐÂÐÂ²ËÊ§°Ü£¡";
@@ -180,7 +181,7 @@ public class FoodDao {
 		ArrayList<Food> foodList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select * from food where id = ?, delete_time is NULL limit 0, 50";
+		sql = "select * from food where id = ? and delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
@@ -221,7 +222,7 @@ public class FoodDao {
 		ArrayList<Food> foodList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select * from food where food_type_id = ?, delete_time is NULL limit 0, 50";
+		sql = "select * from food where food_type_id = ? and delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;

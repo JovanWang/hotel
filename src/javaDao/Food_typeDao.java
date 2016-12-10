@@ -81,7 +81,7 @@ public class Food_typeDao {
 		Food_type ftNow = new Food_type();
 		String updateTime = new TimeNowUtil().now();
 		String sql1 = "select * from food_type where id = ?";
-		String sql2 = "update food_type set name = ?,text = ?,update_time = ?";
+		String sql2 = "update food_type set name = ?,text = ?,update_time = ? where id = ?";
 		Connection con=null;
 		try {
 			con = conUtil.getCon();
@@ -110,9 +110,10 @@ public class Food_typeDao {
 			}
 
 			pst2 = con.prepareStatement(sql2);
-			pst2.setString(2, ftNow.gettext());
+			pst2.setString(1, ftNow.getname());
 			pst2.setString(2, ftNow.gettext());
 			pst2.setString(3, updateTime);
+			pst2.setInt(4, ft.getid());
 			int n=pst2.executeUpdate();
 			if(n <= 0){
 				result.message = "¸üÐÂ²ËÆ·Ê§°Ü£¡";

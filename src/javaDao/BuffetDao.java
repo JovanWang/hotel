@@ -169,7 +169,7 @@ public class BuffetDao {
 		ArrayList<Buffet> buffetList = new ArrayList();
 		String sql;
 		Connection con=null;
-		sql = "select * from buffet where id = ?, delete_time is NULL limit 0, 50";
+		sql = "select * from buffet where id = ? and delete_time is NULL limit 0, 50";
 		try {
 			con = conUtil.getCon();
 			PreparedStatement pst;
