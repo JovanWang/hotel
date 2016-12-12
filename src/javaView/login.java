@@ -33,7 +33,7 @@ import javax.swing.JRadioButton;
 
 public class login extends JFrame {
 
-	private JPanel contentPane;
+	private JPanelImg contentPane;
 	private JTextField username;
 	private JPasswordField password;
 	ButtonGroup typeGroup = new ButtonGroup();
@@ -73,7 +73,7 @@ public class login extends JFrame {
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new JPanelImg();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
@@ -135,7 +135,7 @@ public class login extends JFrame {
 	class JPanelImg extends JPanel{
 		Image img;
 		public JPanelImg(){
-			img=new ImageIcon(index.class.getResource("/img/head1.jpg")).getImage();
+			img=new ImageIcon(index.class.getResource("/img/mohu.jpg")).getImage();
 		}
 		public void paintComponent(Graphics g)
 		{
