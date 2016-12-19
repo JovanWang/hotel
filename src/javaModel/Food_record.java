@@ -5,6 +5,7 @@ public class Food_record {
 	private int bill_id;
 	private int food_id;
 	private int food_num;
+	private double record_price;
 	private String create_time;
 	private String delete_time;
 	private String food_name;
@@ -30,6 +31,9 @@ public int getfood_id(){
 public int getfood_num(){
 	return food_num;
 }
+public double getrecord_price(){
+	return record_price;
+}
 public String getcreate_time(){
 	return create_time;
 }
@@ -38,7 +42,7 @@ public String getdelete_time(){
 	return delete_time;
 }
 
-public String food_name(){
+public String getfood_name(){
 	return food_name;
 }
 public void setid(int id){
@@ -52,6 +56,9 @@ public void setfood_ids(int food_id){
 }
 public void setfood_num(int food_num){
 	this.food_num=food_num;
+}
+public void setrecord_price(double record_price){
+	this.record_price=record_price;
 }
 public void setcreate_time(String create_time){
 	this.create_time=create_time;

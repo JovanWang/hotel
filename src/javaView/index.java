@@ -43,11 +43,12 @@ public class index extends JFrame {
 	 * Create the frame.
 	 */
 	public index(String username) {
+		setResizable(false);
 		//setBackground(new Color(240, 240, 240));
 		setTitle("酒店管理系统");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(10, 10, 1050, 750);
-		contentPane = new JPanelImg("/img/head1.jpg",0,0,1050,750,0,0, 454, 350);
+		contentPane = new JPanelImg("/img/10.jpg",0,0,1050,750,0,0, 1050, 750);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setBounds(0,0,1050,750);
@@ -57,11 +58,14 @@ public class index extends JFrame {
 		}else{
 			usernameLab = new JLabel(username+"，你好！");
 		}
-		usernameLab.setBounds(920, 10, 50,20);
+		usernameLab.setBounds(900, 10, 150,20);
 		contentPane.add(usernameLab);
-		
-		JButton logout = new JButton("退出");
-		logout.setBounds(970, 10, 60, 20);
+
+		ImageIcon imgicon =new ImageIcon(index.class.getResource("/img/chquit.jpg"));
+		JButton logout = new JButton("退出",imgicon);
+		logout.setContentAreaFilled(false);
+		logout.setBounds(810, 330, 210, 138);
+		logout.setBorder(null);
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -71,23 +75,28 @@ public class index extends JFrame {
 		contentPane.add(logout);
 		
 		
-		JButton createbtn = new JButton("我要点餐");
+		imgicon =new ImageIcon(index.class.getResource("/img/chfood.jpg"));
+		JButton createbtn = new JButton(imgicon);
+		createbtn.setContentAreaFilled(false);
+		createbtn.setBounds(100, 200, 502, 264);
+		createbtn.setBorder(null);
 		createbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				new table(username).setVisible(true);
 			}
 		});
-		createbtn.setBounds(533, 214, 93, 23);
-		JButton selectbtn = new JButton("点餐记录");
-		selectbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		selectbtn.setBounds(533, 326, 93, 23);
+		//createbtn.setBounds(480, 214, 93, 23);
+//		JButton selectbtn = new JButton("点餐记录");
+//		selectbtn.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				
+//			}
+//		});
+//		selectbtn.setBounds(533, 326, 93, 23);
 		contentPane.setLayout(null);
 		contentPane.add(createbtn);
-		contentPane.add(selectbtn);
+//		contentPane.add(selectbtn);
 		//设置登录页面居中JFrame
 		this.setLocationRelativeTo(null);
 		

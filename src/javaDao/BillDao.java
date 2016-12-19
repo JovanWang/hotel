@@ -36,6 +36,17 @@ public class BillDao {
 				result.success = false;
 				return result;
 			}
+			pst = con.prepareStatement("select @@IDENTITY as idnew");
+			ResultSet res=pst.executeQuery();
+			if(!res.next()){
+				result.message = "创建订单失败！";
+				result.success = false;
+				return result;
+			}else{
+				do{
+					result.data = res.getInt("idnew");
+		        }while(res.next());
+			}
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}finally{
@@ -47,6 +58,7 @@ public class BillDao {
 		}
 		result.message = "创建订单成功！";
 		result.success = true;
+		System.out.println(result.data);
 		return result;
 	}
 	//用户提交点餐
